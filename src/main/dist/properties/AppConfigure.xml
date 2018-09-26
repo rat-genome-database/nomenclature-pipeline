@@ -1,0 +1,69 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="nomenclatureManager" class="edu.mcw.rgd.nomenclatureinterface.NomenclatureManager">
+		<property name="informaticPrescreener"><ref bean="informaticPrescreener"/></property>
+	</bean>	
+	
+	<bean id="informaticPrescreener" class="edu.mcw.rgd.nomenclatureinterface.InformaticPrescreener">
+	    <property name="untouchableNames">
+			<list>
+				<value>cyp.*</value>
+				<value>defb.*</value>
+				<value>olr.*</value>
+				<value>prl\d+.*</value>
+				<value>prl</value>
+				<value>rt.*</value>				
+				<value>tas2r.*</value>				
+				<value>tuba.*</value>
+				<value>tubb.*</value>
+				<value>vom1r.*</value>				
+				<value>vom2r.*</value>				
+				<value>zfp.*</value>				
+			</list>
+		</property>
+		<property name="excludeSymbolStart">
+			<list>
+				<value>loc</value>
+				<value>mgc</value>
+				<value>kiaa</value>
+				<value>flj</value>			
+			</list>
+		</property>	
+		<property name="excludeSymbolEnd">
+			<list>
+				<value>rik</value>	
+			</list>
+		</property>	
+		<property name="excludeSymbolContain">
+			<list>
+				<value>.*c\d+orf\d+.*</value>	
+				<value>.*cxorf\d+.*</value>	
+				<value>.*cyorf\d+.*</value>	
+				<value>.*c\d+ert.*</value>	
+			</list>
+		</property>	
+		<property name="excludeGeneNames">
+			<list>
+				<value>hypothetical protein</value>	
+				<value>dna segment, chr</value>
+			</list>
+		</property>	
+		<property name="excludeGeneNameStart">
+			<list>
+				<value>cdna sequence</value>
+				<value>expressed sequence</value>
+				<value>gene model</value>
+				<value>predicted gene</value>
+			</list>
+		</property>	
+		<property name="excludeGeneNameEnd">
+			<list>
+				<value>(rat)</value>	
+				<value>(rattus)</value>
+				<value>(rattus norvegicus)</value>				
+			</list>
+		</property>		
+	</bean>
+	
+</beans>
