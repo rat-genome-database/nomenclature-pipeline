@@ -1,7 +1,10 @@
-NomenclaturePipeline v.1.2, Jul 10, 2017
+v.2.0.0, Feb 11, 2019
+  improved logging
+
+v.1.2, Jul 10, 2017
   upgraded from ANT to GRADLE
 
-NomenclaturePipeline v.1.1, Dec 3, 2014
+v.1.1, Dec 3, 2014
   updated jars
 
 

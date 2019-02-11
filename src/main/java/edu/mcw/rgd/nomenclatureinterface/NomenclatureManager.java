@@ -1,8 +1,10 @@
 package edu.mcw.rgd.nomenclatureinterface;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import edu.mcw.rgd.dao.impl.NomenclatureDAO;
 import edu.mcw.rgd.process.Utils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import edu.mcw.rgd.dao.impl.GeneDAO;
@@ -18,8 +20,11 @@ import org.springframework.core.io.FileSystemResource;
  * Much of this class was inherited from dli.  Updated by jdepons
  */
 public class NomenclatureManager {
+
+    String version;
     InformaticPrescreener informaticPrescreener;
     GeneDAO geneDAO = new GeneDAO();
+    Logger log = Logger.getLogger("status");
 
     /**
      * Runs findGenesUpForReview().   Available from the shell.
@@ -27,10 +32,17 @@ public class NomenclatureManager {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception{
-        DefaultListableBeanFactory bf = new DefaultListableBeanFactory();
-        new XmlBeanDefinitionReader(bf).loadBeanDefinitions(new FileSystemResource("properties/AppConfigure.xml"));
-        NomenclatureManager nomenclatureManager=(NomenclatureManager) (bf.getBean("nomenclatureManager"));
-        nomenclatureManager.findGenesUpForReview();
+
+        try {
+            DefaultListableBeanFactory bf = new DefaultListableBeanFactory();
+            new XmlBeanDefinitionReader(bf).loadBeanDefinitions(new FileSystemResource("properties/AppConfigure.xml"));
+            NomenclatureManager nomenclatureManager = (NomenclatureManager) (bf.getBean("nomenclatureManager"));
+            nomenclatureManager.findGenesUpForReview();
+        } catch( Exception e ) {
+            Logger log = Logger.getLogger("status");
+            Utils.printStackTrace(e, log);
+            throw e;
+        }
     }
 
     /**
@@ -65,6 +77,13 @@ public class NomenclatureManager {
      * @throws Exception
      */
     public void findGenesUpForReview() throws Exception {
+
+        Date date0 = new Date();
+        log.info(getVersion());
+        log.info("  "+geneDAO.getConnectionInfo());
+
+        SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        log.info("   started at "+sdt.format(date0));
 
         //get a list of active genes from RGD
         List<Gene> activeGenes = geneDAO.getActiveGenes(3, NomenclatureDAO.NOMENDATE_START,NomenclatureDAO.NOMENDATE_REVIEWABLE);
@@ -120,12 +139,13 @@ public class NomenclatureManager {
             }
         }
 
-        System.out.println("Pipeline finished at: " + new Date());
-        System.out.println("No Good Ortholog: " + noGoodOrtholog);
-        System.out.println("No Change: " + noChange);
-        System.out.println("New Nomenclature: " + newNomen);
-        System.out.println("Untouchable: " + untouchable);
-        System.out.println(" ");
+        log.info("===");
+        log.info("  No Good Ortholog: " + noGoodOrtholog);
+        log.info("  No Change: " + noChange);
+        log.info("  New Nomenclature: " + newNomen);
+        log.info("  Untouchable: " + untouchable);
+        log.info("=== Pipeline finished;  elapsed " + Utils.formatElapsedTime(date0.getTime(), System.currentTimeMillis()));
+        log.info(" ");
     }
 
     /**
@@ -261,6 +281,14 @@ public class NomenclatureManager {
             }
         }
         return matchingOrthologs;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 
     public InformaticPrescreener getInformaticPrescreener() {
