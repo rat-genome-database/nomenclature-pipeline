@@ -2,8 +2,8 @@
 
 <beans>
 	<bean id="nomenclatureManager" class="edu.mcw.rgd.nomenclatureinterface.NomenclatureManager">
-		<property name="version" value="Nomenclature Manager v 2.0.0 as of Feb 11, 2019" />
-		<property name="informaticPrescreener"><ref bean="informaticPrescreener"/></property>
+		<property name="version" value="Nomenclature Manager   -- build Mar 13, 2020" />
+		<property name="informaticPrescreener" ref="informaticPrescreener"/>
 	</bean>	
 	
 	<bean id="informaticPrescreener" class="edu.mcw.rgd.nomenclatureinterface.InformaticPrescreener">
