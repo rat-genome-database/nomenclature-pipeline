@@ -1,3 +1,8 @@
+Mar 13, 2020
+  removed handling of 'predicted','mapped' in gene symbol/names
+    reason: no longer relevant, this code is obsolete: there are no genes in RGD that have these words in gene name or symbol
+    change reviewed and approved by Stan
+
 v.2.0.0, Feb 11, 2019
   improved logging
 
