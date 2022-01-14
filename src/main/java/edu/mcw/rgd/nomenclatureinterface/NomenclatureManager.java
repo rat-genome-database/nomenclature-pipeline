@@ -4,7 +4,8 @@ import java.util.*;
 
 import edu.mcw.rgd.dao.impl.NomenclatureDAO;
 import edu.mcw.rgd.process.Utils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import edu.mcw.rgd.dao.impl.GeneDAO;
@@ -24,7 +25,7 @@ public class NomenclatureManager {
     String version;
     InformaticPrescreener informaticPrescreener;
     GeneDAO geneDAO = new GeneDAO();
-    Logger log = Logger.getLogger("status");
+    Logger log = LogManager.getLogger("status");
 
     /**
      * Runs findGenesUpForReview().   Available from the shell.
@@ -33,14 +34,14 @@ public class NomenclatureManager {
      */
     public static void main(String[] args) throws Exception{
 
+        DefaultListableBeanFactory bf = new DefaultListableBeanFactory();
+        new XmlBeanDefinitionReader(bf).loadBeanDefinitions(new FileSystemResource("properties/AppConfigure.xml"));
+        NomenclatureManager nomenclatureManager = (NomenclatureManager) (bf.getBean("nomenclatureManager"));
+
         try {
-            DefaultListableBeanFactory bf = new DefaultListableBeanFactory();
-            new XmlBeanDefinitionReader(bf).loadBeanDefinitions(new FileSystemResource("properties/AppConfigure.xml"));
-            NomenclatureManager nomenclatureManager = (NomenclatureManager) (bf.getBean("nomenclatureManager"));
             nomenclatureManager.findGenesUpForReview();
         } catch( Exception e ) {
-            Logger log = Logger.getLogger("status");
-            Utils.printStackTrace(e, log);
+            Utils.printStackTrace(e, nomenclatureManager.log);
             throw e;
         }
     }
