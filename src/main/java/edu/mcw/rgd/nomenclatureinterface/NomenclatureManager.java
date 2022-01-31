@@ -142,10 +142,10 @@ public class NomenclatureManager {
         }
 
         log.info("===");
-        log.info("  No Good Ortholog: " + noGoodOrtholog);
-        log.info("  No Change: " + noChange);
-        log.info("  New Nomenclature: " + newNomen);
-        log.info("  Untouchable: " + untouchable);
+        log.info("  No Good Ortholog: " + Utils.formatThousands(noGoodOrtholog));
+        log.info("  No Change: " + Utils.formatThousands(noChange));
+        log.info("  New Nomenclature: " + Utils.formatThousands(newNomen));
+        log.info("  Untouchable: " + Utils.formatThousands(untouchable));
         log.info("=== Pipeline finished;  elapsed " + Utils.formatElapsedTime(date0.getTime(), System.currentTimeMillis()));
         log.info(" ");
     }
