@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 . /etc/profile
-APPNAME=NomenclaturePipeline
+APPNAME=nomenclature-pipeline
 
 APPDIR=/home/rgddata/pipelines/$APPNAME
 cd $APPDIR

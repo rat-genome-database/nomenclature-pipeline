@@ -1,6 +1,6 @@
 # Shell script to run the nomenclature pipeline
 #
-APPHOME=/home/rgddata/pipelines/NomenclaturePipeline
+APPHOME=/home/rgddata/pipelines/nomenclature-pipeline
 SERVER=`hostname -s | tr '[a-z]' '[A-Z]'`
 
 $APPHOME/_run.sh > $APPHOME/run.log 2>&1
