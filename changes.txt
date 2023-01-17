@@ -1,3 +1,6 @@
+Jan 17, 2023
+  renamed branch 'master' to 'main'
+  
 Jan 13, 2023
   updated build.gradle to be gradle 6.x + compatible
 
