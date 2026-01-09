@@ -2,7 +2,7 @@
 
 <beans>
 	<bean id="nomenclatureManager" class="edu.mcw.rgd.nomenclatureinterface.NomenclatureManager">
-		<property name="version" value="nomenclature-pipeline   -- build Dec 15, 2025" />
+		<property name="version" value="nomenclature-pipeline   -- build Jan 09, 2026" />
 		<property name="informaticPrescreener" ref="informaticPrescreener"/>
 	</bean>
 	
