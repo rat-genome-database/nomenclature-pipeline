@@ -3,6 +3,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import edu.mcw.rgd.dao.impl.NomenclatureDAO;
+import edu.mcw.rgd.process.MemoryMonitor;
 import edu.mcw.rgd.process.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -80,6 +81,10 @@ public class NomenclatureManager {
     public void findGenesUpForReview() throws Exception {
 
         Date date0 = new Date();
+
+        MemoryMonitor memoryMonitor = new MemoryMonitor();
+        memoryMonitor.start();
+
         log.info(getVersion());
         log.info("  "+geneDAO.getConnectionInfo());
 
@@ -146,6 +151,8 @@ public class NomenclatureManager {
         log.info("  No Change: " + Utils.formatThousands(noChange));
         log.info("  New Nomenclature: " + Utils.formatThousands(newNomen));
         log.info("  Untouchable: " + Utils.formatThousands(untouchable));
+        memoryMonitor.stop();
+        log.info(memoryMonitor.getSummary());
         log.info("=== Pipeline finished;  elapsed " + Utils.formatElapsedTime(date0.getTime(), System.currentTimeMillis()));
         log.info(" ");
     }
