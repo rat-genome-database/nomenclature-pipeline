@@ -1,3 +1,6 @@
+May 18, 2026
+  selectGoodOrtholog: fixed misleading variable names and comments (mouseOrthologs/humanOrthologs were swapped vs. their SpeciesType args); no behavior change; updated dependencies
+
 Mar 30, 2026
   added MemoryMonitor; updated README; updated dependencies
 

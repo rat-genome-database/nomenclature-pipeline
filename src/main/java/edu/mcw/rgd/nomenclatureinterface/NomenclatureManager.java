@@ -221,12 +221,11 @@ public class NomenclatureManager {
     }
 
     public Gene selectGoodOrtholog(List<Gene> orthologs) {
-        List<Gene> mouseOrthologs=getOrthologNomenclatureBySpecies(orthologs, SpeciesType.HUMAN);
+        // try human ortholog nomenclature first
+        List<Gene> humanOrthologs=getOrthologNomenclatureBySpecies(orthologs, SpeciesType.HUMAN);
 
-        // looking for new nomen from mouse nomen
-        if (mouseOrthologs !=null && mouseOrthologs.size() >0) {
-            // use mouse orthologs
-            for (Gene gene : mouseOrthologs) {
+        if (humanOrthologs !=null && humanOrthologs.size() >0) {
+            for (Gene gene : humanOrthologs) {
                 if (informaticPrescreener.validSymbol(gene.getSymbol()) &&
                         informaticPrescreener.validName(gene.getName())) {
                     // the symbol and name pass the informatic prescreening
@@ -235,11 +234,11 @@ public class NomenclatureManager {
             }
         }
 
-        // looking for new nomenclature from human
+        // fall back to mouse ortholog nomenclature
 
-        List<Gene> humanOrthologs=getOrthologNomenclatureBySpecies(orthologs, SpeciesType.MOUSE);
-        //process.info("Checking gene name and gene symbol: " + humanOrthologs.size());
-        for (Gene gene : humanOrthologs) {
+        List<Gene> mouseOrthologs=getOrthologNomenclatureBySpecies(orthologs, SpeciesType.MOUSE);
+        //process.info("Checking gene name and gene symbol: " + mouseOrthologs.size());
+        for (Gene gene : mouseOrthologs) {
 
             if (informaticPrescreener.validSymbol(gene.getSymbol()) &&
                     informaticPrescreener.validName(gene.getName())) {
